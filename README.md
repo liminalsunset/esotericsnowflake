@@ -94,11 +94,42 @@ In settings.py:
 --
     python3 manage.py startapp myapp
 
+--
+
+**7/10 test--appears to work up until this point**
 
 unreviewed continuation:
 
 --
-27. urls.py
+27. views.py in myapp:
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
+
+def home(request):
+  context = {"name": "Pluto"}
+  return render(request,"myapp/home.html", context)
+  
+
+28. create urls.py file in app folder and:
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home)
+]
+
+29. in the project urls.py:
+
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', 'myapp.urls')
+]
 
 
 
